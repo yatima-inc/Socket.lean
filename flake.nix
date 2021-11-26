@@ -29,7 +29,7 @@
     flake-utils.lib.eachSystem supportedSystems (system:
       let
         leanPkgs = lean.packages.${system};
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = nixpkgs.legacyPackages.${system};
         name = "lean-socket";
         inherit (utils.lib.${system}) buildCLib forEachRowJoin;
         native = buildCLib {
@@ -43,18 +43,25 @@
           src = ./.;
           nativeSharedLibs = [ native.sharedLib ];
         };
+        Ipfs = leanPkgs.buildLeanPackage {
+          name = "Ipfs";
+          src = ./.;
+          deps = [ project ];
+        };
         examples = import ./examples/default.nix {
           inherit pkgs native;
           lean = leanPkgs;
           Socket = project;
         };
+        joinDepsDerivationns = getSubDrv:
+          pkgs.lib.concatStringsSep ":" (map (d: "${getSubDrv d}") ([ project ] ++ (builtins.attrValues project.allExternalDeps)));
       in
       {
         inherit project;
         packages = {
-          inherit native;
+          inherit native examples;
+          inherit Ipfs;
           inherit (project) modRoot sharedLib staticLib;
-          inherit examples;
         };
 
         checks =
@@ -68,8 +75,8 @@
         defaultPackage = project.modRoot;
         devShell = pkgs.mkShell {
           buildInputs = [ leanPkgs.lean ];
-          LEAN_PATH = "${leanPkgs.Lean.modRoot}";
-          CPATH = "${leanPkgs.Lean.modRoot}";
+          LEAN_PATH = joinDepsDerivationns (d: d.modRoot);
+          LEAN_SRC_PATH = joinDepsDerivationns (d: d.src);
         };
       });
 }
