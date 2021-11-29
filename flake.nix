@@ -38,7 +38,7 @@
           updateCCOptions = o: o ++ [ "-I${leanPkgs.lean-bin-tools-unwrapped}/include" ];
           extraDrvArgs = { linkName = "lean-socket-native"; };
         };
-        project = leanPkgs.buildLeanPackage {
+        Socket = leanPkgs.buildLeanPackage {
           name = "Socket";
           src = ./.;
           nativeSharedLibs = [ native.sharedLib ];
@@ -46,22 +46,27 @@
         Ipfs = leanPkgs.buildLeanPackage {
           name = "Ipfs";
           src = ./.;
-          deps = [ project ];
+          deps = [ Socket ];
+        };
+        Http = leanPkgs.buildLeanPackage {
+          name = "Http";
+          src = ./.;
+          deps = [ Socket ];
         };
         examples = import ./examples/default.nix {
           inherit pkgs native;
           lean = leanPkgs;
-          Socket = project;
+          Socket = Socket;
         };
         joinDepsDerivationns = getSubDrv:
-          pkgs.lib.concatStringsSep ":" (map (d: "${getSubDrv d}") ([ project ] ++ (builtins.attrValues project.allExternalDeps)));
+          pkgs.lib.concatStringsSep ":" (map (d: "${getSubDrv d}") ([ Socket Ipfs Http ] ++ (builtins.attrValues Socket.allExternalDeps)));
       in
       {
-        inherit project;
+        inherit Socket;
         packages = {
           inherit native examples;
           inherit Ipfs;
-          inherit (project) modRoot sharedLib staticLib;
+          inherit (Socket) modRoot sharedLib staticLib;
         };
 
         checks =
@@ -72,7 +77,7 @@
             inherit exampleExecutables;
           };
 
-        defaultPackage = project.modRoot;
+        defaultPackage = Socket.modRoot;
         devShell = pkgs.mkShell {
           buildInputs = [ leanPkgs.lean ];
           LEAN_PATH = joinDepsDerivationns (d: d.modRoot);
