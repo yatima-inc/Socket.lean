@@ -43,15 +43,15 @@
           src = ./.;
           nativeSharedLibs = [ native.sharedLib ];
         };
-        Ipfs = leanPkgs.buildLeanPackage {
-          name = "Ipfs";
-          src = ./.;
-          deps = [ Socket ];
-        };
         Http = leanPkgs.buildLeanPackage {
           name = "Http";
           src = ./.;
           deps = [ Socket ];
+        };
+        Ipfs = leanPkgs.buildLeanPackage {
+          name = "Ipfs";
+          src = ./.;
+          deps = [ Socket Http ];
         };
         examples = import ./examples/default.nix {
           inherit pkgs native;
@@ -59,7 +59,7 @@
           Socket = Socket;
         };
         joinDepsDerivationns = getSubDrv:
-          pkgs.lib.concatStringsSep ":" (map (d: "${getSubDrv d}") ([ Socket Ipfs Http ] ++ (builtins.attrValues Socket.allExternalDeps)));
+          pkgs.lib.concatStringsSep ":" (map (d: "${getSubDrv d}") ([ Socket Ipfs Http ] ++ Socket.allExternalDeps));
       in
       {
         inherit Socket;
