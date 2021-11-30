@@ -3,7 +3,7 @@
 
   inputs = {
     lean = {
-      url = github:yatima-inc/lean4/acs/add-nix-ability-for-native-libs;
+      url = github:leanprover/lean4;
     };
     utils = {
       url = github:yatima-inc/nix-utils;
