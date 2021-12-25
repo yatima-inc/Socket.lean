@@ -12,15 +12,15 @@ def main (args : List String) : IO Unit := do
     else "/"
   )
   let method ← Http.Method.GET
-  /- let url ← Http.URI.mk { -/
-  /-   userinfo := none -/
-  /-   host := host -/
-  /-   path := path -/
-  /-   fragment := none -/
-  /-   query := none -/
-  /-   scheme := Scheme.mk "http" -/
-  /-   port := some 80 -/
-  /- } -/
+  let url ← Http.URI.mk {
+    userinfo := none
+    host := host
+    path := path
+    fragment := none
+    query := none
+    scheme := Scheme.mk "http"
+    port := some 80
+  }
   -- configure remote SockAddr
   let remoteAddr ← SockAddr.mk {
     host := host

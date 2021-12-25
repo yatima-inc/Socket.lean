@@ -43,6 +43,10 @@
           src = ./.;
           nativeSharedLibs = [ native.sharedLib ];
         };
+        Parsec = leanPkgs.buildLeanPackage {
+          name = "Parsec";
+          src = ./.;
+        };
         Http = leanPkgs.buildLeanPackage {
           name = "Http";
           src = ./.;
@@ -59,7 +63,7 @@
           Socket = Socket;
         };
         joinDepsDerivationns = getSubDrv:
-          pkgs.lib.concatStringsSep ":" (map (d: "${getSubDrv d}") ([ Socket Ipfs Http ] ++ Socket.allExternalDeps));
+          pkgs.lib.concatStringsSep ":" (map (d: "${getSubDrv d}") ([ Parsec Socket Ipfs Http ] ++ Socket.allExternalDeps));
       in
       {
         inherit Socket;
