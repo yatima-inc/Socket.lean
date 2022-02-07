@@ -68,6 +68,11 @@ def option (p : Parsec α) : Parsec $ Option α := fun it =>
   | success rem a => success rem (some a)
   | error rem err => success rem (none)
 
+def test (p : Parsec α) : Parsec Bool := fun it =>
+  match p it with
+  | success rem a => success rem true
+  | error rem err => success it false
+
 /-
 Rewind the iterator on failure
 -/
@@ -181,6 +186,7 @@ def symbol : Parsec String := attempt do
   let rest ← manyChars (asciiLetter <|> digit)
   return s!"{c}{rest}"
 
+
 @[inline]
 def satisfy (p : Char → Bool) : Parsec Char := attempt do
   let c ← anyChar
@@ -201,6 +207,8 @@ partial def skipWs (it : String.Iterator) : String.Iterator :=
       it
   else
    it
+
+
 
 @[inline]
 def peek? : Parsec (Option Char) := fun it =>

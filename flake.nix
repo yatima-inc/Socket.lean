@@ -50,7 +50,7 @@
         Http = leanPkgs.buildLeanPackage {
           name = "Http";
           src = ./.;
-          deps = [ Socket ];
+          deps = [ Parsec Socket ];
         };
         Ipfs = leanPkgs.buildLeanPackage {
           name = "Ipfs";
@@ -69,7 +69,7 @@
         inherit Socket;
         packages = {
           inherit native examples;
-          inherit Ipfs;
+          inherit Ipfs Parsec Http;
           inherit (Socket) modRoot sharedLib staticLib;
         };
 

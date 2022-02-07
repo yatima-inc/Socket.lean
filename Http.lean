@@ -1,10 +1,11 @@
 
 import Std
 import Parsec
+open Std
 open Parsec
 
 namespace Http
-namespace URL
+namespace URI
 def Hostname := String
 deriving instance ToString for Hostname
 def Scheme := String
@@ -20,10 +21,10 @@ deriving instance ToString for Fragment
 def Query := Std.HashMap String String
 instance : ToString Query where
   toString (q : Query) := ""
-end URL
+end URI
 
-open URL
-structure URL where
+open URI
+structure URI where
   userinfo : Option Userinfo
   host: Hostname
   port: Option UInt16
@@ -32,9 +33,9 @@ structure URL where
   query: Option Query
   fragment: Option Fragment
 
-namespace URL
+namespace URI
 
-def toString (uri : URL) : String :=
+def toString (uri : URI) : String :=
   s!"{uri.scheme}://"
   ++ if let some user := uri.userinfo then s!"{user}@"
   else ""
@@ -58,7 +59,7 @@ def hostName : Parsec Hostname := do
   let start := name ++ pstring "."
   many1Strings start ++ name
 
-def parseDigit (c : Char) : Nat :=
+def parseDigit! (c : Char) : Nat :=
   match c with
   | '0' => 0
   | '1' => 1
@@ -70,19 +71,53 @@ def parseDigit (c : Char) : Nat :=
   | '7' => 7
   | '8' => 8
   | '9' => 9
+  | _ => panic! "Not a digit"
 
 def parseUInt16 : Parsec UInt16 := do
   let as ← many1 digit
   let mut n := 0
-  for (i, c) in enum (as.toList.reverse) do
-    let d := parseDigit c
+  for (i, c) in as.toList.reverse.enum do
+    let d := parseDigit! c
     n := n + d * 10 ^ i
   return n.toUInt16
 
 def maybePort : Parsec (Option UInt16) := do
-  option $ map (many1 digit) parseUInt16
+  option $ parseUInt16
 
-def parser : Parsec URL := do
+def pathParser : Parsec Path := do
+  let psegment := digit <|> asciiLetter
+  let comp := pstring "/" ++ manyChars psegment
+  manyStrings comp
+
+def queryParser : Parsec Query := do
+  skipChar '?'
+  let psegment := digit <|> asciiLetter
+  let rec entries ← λ map : HashMap String String => do
+    let k ← many1Chars psegment
+    skipChar '='
+    let v ← many1Chars psegment
+    let map := HashMap.insert map k v
+    if ← test $ skipChar '&' then
+      entries map
+    else
+      map
+  entries mkHashMap
+
+def fragmentParser : Parsec Fragment := do
+  skipChar '#'
+  let psegment := digit <|> asciiLetter
+  let rec entries ← λ map : HashMap String String => do
+    let k ← many1Chars psegment
+    skipChar '='
+    let v ← many1Chars psegment
+    let map := HashMap.insert map k v
+    if ← test $ skipChar '&' then
+      entries map
+    else
+      map
+  entries mkHashMap
+
+def parser : Parsec URI := do
   let scheme ← schemeParser
   skipString "://"
   let host ← hostName
@@ -91,13 +126,15 @@ def parser : Parsec URL := do
   let query ← queryParser
   let fragment ← fragmentParser
 
-def parse (s : String) : Except String URL :=
+def parse (s : String) : Except String URI :=
   match parser s.mkIterator with
   | Parsec.ParseResult.success _ res => Except.ok res
   | Parsec.ParseResult.error it err  => Except.error s!"offset {it.i.repr}: {err}"
 
+#eval (try parse "http://yatima.io/test?1=1#a")
+
 end Parser
-end URL
+end URI
 
 inductive Method
   | GET
@@ -125,7 +162,7 @@ instance : ToString Method where
   toString := Method.toString
 
 structure Request where
-  url : URL
+  url : URI
   method : Method
   payload : Option String
 
