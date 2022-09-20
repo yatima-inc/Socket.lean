@@ -1,0 +1,2513 @@
+<html lang="en">
+<head>
+<link rel="stylesheet" href="/Socket.lean/style.css"></link><link rel="stylesheet" href="/Socket.lean/pygments.css"></link><link rel="shortcut icon" href="/Socket.lean/favicon.ico"></link><title>Init.Notation</title>
+<meta charset="UTF-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body>
+<input id="nav_toggle" type="checkbox"></input><header>
+<h1>
+<label for="nav_toggle">
+</label>
+Documentation</h1>
+<p class="header_filename break_within">Init.Notation</p>
+<form action="https://google.com/search" method="get" id="search_form">
+<input type="hidden" name="sitesearch" value="https://leanprover-community.github.io/mathlib_docs"></input><input type="text" name="q" autocomplete="off"></input><button>Google site search</button>
+</form>
+</header>
+<nav class="internal_nav">
+<h3>
+<a class="break_within" href="#top">Init.Notation</a>
+</h3>
+<p class="gh_nav_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean">source</a>
+</p>
+<div class="imports">
+<details>
+<summary>Imports</summary>
+<ul>
+<li>
+<a href="/Socket.lean/Init/Prelude.html">Init.Prelude</a>
+</li>
+</ul>
+</details>
+<details>
+<summary>Imported by</summary>
+<ul>
+<li>
+<a href="/Socket.lean/Init.html">Init</a>
+</li>
+<li>
+<a href="/Socket.lean/Init/Tactics.html">Init.Tactics</a>
+</li>
+</ul>
+</details>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Lean.Parser.Syntax.addPrec">Lean.Parser.Syntax.addPrec</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Lean.Parser.Syntax.subPrec">Lean.Parser.Syntax.subPrec</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Lean.Parser.Syntax.addPrio">Lean.Parser.Syntax.addPrio</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Lean.Parser.Syntax.subPrio">Lean.Parser.Syntax.subPrio</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#precMax">precMax</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#precArg">precArg</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#precLead">precLead</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«prec(_)»">«prec(_)»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#precMin">precMin</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#precMin1">precMin1</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#termMax_prec">termMax_prec</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#prioDefault">prioDefault</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#prioLow">prioLow</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#prioMid">prioMid</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#prioHigh">prioHigh</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«prio(_)»">«prio(_)»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«stx_+»">«stx_+»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«stx_*»">«stx_*»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#stx_?">stx_?</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«stx_<|>_»">«stx_<|>_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«stx_,*»">«stx_,*»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«stx_,+»">«stx_,+»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«stx_,*,?»">«stx_,*,?»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«stx_,+,?»">«stx_,+,?»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#stx!_">stx!_</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#rawNatLit">rawNatLit</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_∘_»">«term_∘_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_×_»">«term_×_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_|||_»">«term_|||_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_^^^_»">«term_^^^_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_&&&_»">«term_&&&_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_+_»">«term_+_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_-_»">«term_-_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_*_»">«term_*_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_/_»">«term_/_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_%_»">«term_%_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_<<<_»">«term_<<<_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_>>>_»">«term_>>>_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_^_»">«term_^_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_++_»">«term_++_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term-_»">«term-_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term~~~_»">«term~~~_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_<=_»">«term_<=_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_≤_»">«term_≤_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_<_»">«term_<_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_>=_»">«term_>=_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_≥_»">«term_≥_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_>_»">«term_>_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_=_»">«term_=_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_==_»">«term_==_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_/\_»">«term_/\_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_∧_»">«term_∧_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_\/_»">«term_\/_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_∨_»">«term_∨_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term¬_»">«term¬_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_&&_»">«term_&&_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_||_»">«term_||_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#term!_">term!_</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_∈_»">«term_∈_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_∉_»">«term_∉_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_::_»">«term_::_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_<|>_»">«term_<|>_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_>>_»">«term_>>_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_>>=_»">«term_>>=_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_<*>_»">«term_<*>_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_<*_»">«term_<*_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_*>_»">«term_*>_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_<$>_»">«term_<$>_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#termDepIfThenElse">termDepIfThenElse</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#termIfThenElse">termIfThenElse</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«termIfLet_:=_Then_Else_»">«termIfLet_:=_Then_Else_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#boolIfThenElse">boolIfThenElse</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_<|_»">«term_<|_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_|>_»">«term_|>_»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term_$__»">«term_$__»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term{__:_//_}»">«term{__:_//_}»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#termWithout_expected_type_">termWithout_expected_type_</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term[_]»">«term[_]»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#«term%[_|_]»">«term%[_|_]»</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Lean.termThis">Lean.termThis</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Lean.rawStx.quot">Lean.rawStx.quot</a>
+</div>
+</nav>
+<main>
+<div class="decl" id="Lean.Parser.Syntax.addPrec">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L15-L15">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#Lean.Parser.Syntax.addPrec">Lean.Parser.Syntax.addPrec</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#Lean.Parser.Syntax.addPrec">Lean.Parser.Syntax.addPrec</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`Lean.Parser.Syntax.addPrec</span> <span class="fn">65</span> <span class="fn">0</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" + "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`prec</span> <span class="fn">66</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="Lean.Parser.Syntax.subPrec">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L16-L16">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#Lean.Parser.Syntax.subPrec">Lean.Parser.Syntax.subPrec</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#Lean.Parser.Syntax.subPrec">Lean.Parser.Syntax.subPrec</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`Lean.Parser.Syntax.subPrec</span> <span class="fn">65</span> <span class="fn">0</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" - "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`prec</span> <span class="fn">66</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="Lean.Parser.Syntax.addPrio">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L18-L18">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#Lean.Parser.Syntax.addPrio">Lean.Parser.Syntax.addPrio</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#Lean.Parser.Syntax.addPrio">Lean.Parser.Syntax.addPrio</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`Lean.Parser.Syntax.addPrio</span> <span class="fn">65</span> <span class="fn">0</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" + "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`prio</span> <span class="fn">66</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="Lean.Parser.Syntax.subPrio">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L19-L19">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#Lean.Parser.Syntax.subPrio">Lean.Parser.Syntax.subPrio</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#Lean.Parser.Syntax.subPrio">Lean.Parser.Syntax.subPrio</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`Lean.Parser.Syntax.subPrio</span> <span class="fn">65</span> <span class="fn">0</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" - "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`prio</span> <span class="fn">66</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="precMax">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L23-L23">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#precMax">precMax</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#precMax">precMax</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`precMax</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"max"</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="precArg">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L24-L24">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#precArg">precArg</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#precArg">precArg</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`precArg</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"arg"</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="precLead">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L25-L25">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#precLead">precLead</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#precLead">precLead</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`precLead</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"lead"</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«prec(_)»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L26-L26">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«prec(_)»">«prec(_)»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«prec(_)»">«prec(_)»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`«prec(_)»</span> <span class="fn">1024</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"("</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`prec</span> <span class="fn">0</span></span>)</span>)
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">")"</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="precMin">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L27-L27">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#precMin">precMin</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#precMin">precMin</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`precMin</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"min"</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="precMin1">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L28-L28">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#precMin1">precMin1</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#precMin1">precMin1</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`precMin1</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"min1"</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="termMax_prec">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L32-L32">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#termMax_prec">termMax_prec</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#termMax_prec">termMax_prec</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`termMax_prec</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"max_prec"</span></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="prioDefault">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L34-L34">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#prioDefault">prioDefault</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#prioDefault">prioDefault</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`prioDefault</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"default"</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="prioLow">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L35-L35">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#prioLow">prioLow</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#prioLow">prioLow</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`prioLow</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"low"</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="prioMid">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L36-L36">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#prioMid">prioMid</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#prioMid">prioMid</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`prioMid</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"mid"</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="prioHigh">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L37-L37">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#prioHigh">prioHigh</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#prioHigh">prioHigh</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`prioHigh</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"high"</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«prio(_)»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L38-L38">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«prio(_)»">«prio(_)»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«prio(_)»">«prio(_)»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`«prio(_)»</span> <span class="fn">1024</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"("</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`prio</span> <span class="fn">0</span></span>)</span>)
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">")"</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«stx_+»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L42-L42">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«stx_+»">«stx_+»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«stx_+»">«stx_+»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«stx_+»</span> <span class="fn">1023</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"+"</span></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«stx_*»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L43-L43">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«stx_*»">«stx_*»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«stx_*»">«stx_*»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«stx_*»</span> <span class="fn">1023</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"*"</span></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="stx_?">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L44-L44">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#stx_?">stx_?</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#stx_?">stx_?</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`stx_?</span> <span class="fn">1023</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"?"</span></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«stx_<|>_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L45-L45">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«stx_<|>_»">«stx_<|>_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«stx_<|>_»">«stx_<|>_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«stx_<|>_»</span> <span class="fn">2</span> <span class="fn">2</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" <|> "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`stx</span> <span class="fn">1</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«stx_,*»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L54-L54">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«stx_,*»">«stx_,*»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«stx_,*»">«stx_,*»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«stx_,*»</span> <span class="fn">1023</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">",*"</span></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«stx_,+»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L55-L55">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«stx_,+»">«stx_,+»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«stx_,+»">«stx_,+»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«stx_,+»</span> <span class="fn">1023</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">",+"</span></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«stx_,*,?»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L57-L57">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«stx_,*,?»">«stx_,*,?»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«stx_,*,?»">«stx_,*,?»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«stx_,*,?»</span> <span class="fn">1023</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">",*,?"</span></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«stx_,+,?»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L58-L58">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«stx_,+,?»">«stx_,+,?»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«stx_,+,?»">«stx_,+,?»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«stx_,+,?»</span> <span class="fn">1023</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">",+,?"</span></span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="stx!_">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L60-L60">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#stx!_">stx!_</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#stx!_">stx!_</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`stx!_</span> <span class="fn">1023</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.nonReservedSymbol">Lean.ParserDescr.nonReservedSymbol</a> <span class="fn">"!"</span> <a href="/Socket.lean/Init/Prelude.html#Bool.false">false</a></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`stx</span> <span class="fn">1024</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="rawNatLit">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L62-L62">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#rawNatLit">rawNatLit</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#rawNatLit">rawNatLit</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`rawNatLit</span> <span class="fn">1022</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"nat_lit "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.const">Lean.ParserDescr.const</a> <span class="fn">`num</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_∘_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L64-L64">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_∘_»">«term_∘_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_∘_»">«term_∘_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_∘_»</span> <span class="fn">90</span> <span class="fn">91</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" ∘ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">90</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_×_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L65-L65">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_×_»">«term_×_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_×_»">«term_×_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_×_»</span> <span class="fn">35</span> <span class="fn">36</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" × "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">35</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_|||_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L67-L67">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_|||_»">«term_|||_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_|||_»">«term_|||_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_|||_»</span> <span class="fn">55</span> <span class="fn">55</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" ||| "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">56</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_^^^_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L68-L68">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_^^^_»">«term_^^^_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_^^^_»">«term_^^^_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_^^^_»</span> <span class="fn">58</span> <span class="fn">58</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" ^^^ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">59</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_&&&_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L69-L69">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_&&&_»">«term_&&&_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_&&&_»">«term_&&&_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_&&&_»</span> <span class="fn">60</span> <span class="fn">60</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" &&& "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">61</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_+_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L70-L70">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_+_»">«term_+_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_+_»">«term_+_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_+_»</span> <span class="fn">65</span> <span class="fn">65</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" + "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">66</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_-_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L71-L71">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_-_»">«term_-_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_-_»">«term_-_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_-_»</span> <span class="fn">65</span> <span class="fn">65</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" - "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">66</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_*_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L72-L72">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_*_»">«term_*_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_*_»">«term_*_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_*_»</span> <span class="fn">70</span> <span class="fn">70</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" * "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">71</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_/_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L73-L73">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_/_»">«term_/_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_/_»">«term_/_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_/_»</span> <span class="fn">70</span> <span class="fn">70</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" / "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">71</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_%_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L74-L74">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_%_»">«term_%_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_%_»">«term_%_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_%_»</span> <span class="fn">70</span> <span class="fn">70</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" % "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">71</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_<<<_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L75-L75">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_<<<_»">«term_<<<_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_<<<_»">«term_<<<_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_<<<_»</span> <span class="fn">75</span> <span class="fn">75</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" <<< "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">76</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_>>>_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L76-L76">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_>>>_»">«term_>>>_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_>>>_»">«term_>>>_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_>>>_»</span> <span class="fn">75</span> <span class="fn">75</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" >>> "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">76</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_^_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L77-L77">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_^_»">«term_^_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_^_»">«term_^_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_^_»</span> <span class="fn">80</span> <span class="fn">81</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" ^ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">80</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_++_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L78-L78">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_++_»">«term_++_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_++_»">«term_++_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_++_»</span> <span class="fn">65</span> <span class="fn">65</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" ++ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">66</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term-_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L79-L79">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term-_»">«term-_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term-_»">«term-_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`«term-_»</span> <span class="fn">100</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"-"</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">100</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term~~~_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L80-L80">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term~~~_»">«term~~~_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term~~~_»">«term~~~_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`«term~~~_»</span> <span class="fn">100</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"~~~"</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">100</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_<=_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L95-L95">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_<=_»">«term_<=_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_<=_»">«term_<=_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_<=_»</span> <span class="fn">50</span> <span class="fn">51</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" <= "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">51</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_≤_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L96-L96">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_≤_»">«term_≤_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_≤_»">«term_≤_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_≤_»</span> <span class="fn">50</span> <span class="fn">51</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" ≤ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">51</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_<_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L97-L97">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_<_»">«term_<_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_<_»">«term_<_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_<_»</span> <span class="fn">50</span> <span class="fn">51</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" < "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">51</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_>=_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L98-L98">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_>=_»">«term_>=_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_>=_»">«term_>=_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_>=_»</span> <span class="fn">50</span> <span class="fn">51</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" >= "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">51</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_≥_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L99-L99">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_≥_»">«term_≥_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_≥_»">«term_≥_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_≥_»</span> <span class="fn">50</span> <span class="fn">51</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" ≥ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">51</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_>_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L100-L100">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_>_»">«term_>_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_>_»">«term_>_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_>_»</span> <span class="fn">50</span> <span class="fn">51</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" > "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">51</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_=_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L101-L101">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_=_»">«term_=_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_=_»">«term_=_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_=_»</span> <span class="fn">50</span> <span class="fn">51</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" = "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">51</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_==_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L102-L102">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_==_»">«term_==_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_==_»">«term_==_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_==_»</span> <span class="fn">50</span> <span class="fn">51</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" == "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">51</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_/\_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L118-L118">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_/\_»">«term_/\_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_/\_»">«term_/\_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_/\_»</span> <span class="fn">35</span> <span class="fn">36</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" /\\ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">35</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_∧_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L119-L119">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_∧_»">«term_∧_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_∧_»">«term_∧_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_∧_»</span> <span class="fn">35</span> <span class="fn">36</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" ∧ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">35</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_\/_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L120-L120">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_\/_»">«term_\/_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_\/_»">«term_\/_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_\/_»</span> <span class="fn">30</span> <span class="fn">31</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" \\/ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">30</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_∨_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L121-L121">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_∨_»">«term_∨_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_∨_»">«term_∨_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_∨_»</span> <span class="fn">30</span> <span class="fn">31</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" ∨  "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">30</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term¬_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L122-L122">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term¬_»">«term¬_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term¬_»">«term¬_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`«term¬_»</span> <span class="fn">1024</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"¬"</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">40</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_&&_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L124-L124">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_&&_»">«term_&&_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_&&_»">«term_&&_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_&&_»</span> <span class="fn">35</span> <span class="fn">35</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" && "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">36</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_||_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L125-L125">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_||_»">«term_||_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_||_»">«term_||_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_||_»</span> <span class="fn">30</span> <span class="fn">30</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" || "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">31</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="term!_">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L126-L126">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#term!_">term!_</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#term!_">term!_</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`term!_</span> <span class="fn">1024</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"!"</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">40</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_∈_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L128-L128">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_∈_»">«term_∈_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_∈_»">«term_∈_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_∈_»</span> <span class="fn">50</span> <span class="fn">51</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" ∈ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">51</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_∉_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L129-L129">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_∉_»">«term_∉_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_∉_»">«term_∉_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_∉_»</span> <span class="fn">50</span> <span class="fn">50</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" ∉ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">50</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_::_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L131-L131">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_::_»">«term_::_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_::_»">«term_::_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_::_»</span> <span class="fn">67</span> <span class="fn">68</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" :: "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">67</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_<|>_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L132-L132">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_<|>_»">«term_<|>_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_<|>_»">«term_<|>_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_<|>_»</span> <span class="fn">20</span> <span class="fn">21</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" <|> "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">20</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_>>_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L133-L133">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_>>_»">«term_>>_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_>>_»">«term_>>_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_>>_»</span> <span class="fn">60</span> <span class="fn">61</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" >> "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">60</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_>>=_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L134-L134">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_>>=_»">«term_>>=_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_>>=_»">«term_>>=_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_>>=_»</span> <span class="fn">55</span> <span class="fn">55</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" >>= "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">56</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_<*>_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L135-L135">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_<*>_»">«term_<*>_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_<*>_»">«term_<*>_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_<*>_»</span> <span class="fn">60</span> <span class="fn">60</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" <*> "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">61</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_<*_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L136-L136">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_<*_»">«term_<*_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_<*_»">«term_<*_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_<*_»</span> <span class="fn">60</span> <span class="fn">60</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" <* "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">61</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_*>_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L137-L137">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_*>_»">«term_*>_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_*>_»">«term_*>_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_*>_»</span> <span class="fn">60</span> <span class="fn">60</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" *> "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">61</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_<$>_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L138-L138">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_<$>_»">«term_<$>_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_<$>_»">«term_<$>_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_<$>_»</span> <span class="fn">100</span> <span class="fn">101</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" <$> "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">100</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="termDepIfThenElse">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L143-L145">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#termDepIfThenElse">termDepIfThenElse</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#termDepIfThenElse">termDepIfThenElse</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`termDepIfThenElse</span> <span class="fn">1022</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppRealGroup</span>
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppRealFill</span>
+            (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+              (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+                (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppIndent</span>
+                  (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+                    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+                      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+                        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"if "</span></span>)
+                          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.const">Lean.ParserDescr.const</a> <span class="fn">`ident</span></span>)</span>)
+                        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" : "</span></span>)</span>)
+                      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)
+                    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" then"</span></span>)</span>)</span>)
+                (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.const">Lean.ParserDescr.const</a> <span class="fn">`ppSpace</span></span>)</span>)
+              (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)</span>)
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppDedent</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.const">Lean.ParserDescr.const</a> <span class="fn">`ppSpace</span></span>)</span>)</span>)
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppRealFill</span>
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"else "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)</span>)</span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="termIfThenElse">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L150-L152">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#termIfThenElse">termIfThenElse</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#termIfThenElse">termIfThenElse</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`termIfThenElse</span> <span class="fn">1022</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppRealGroup</span>
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppRealFill</span>
+            (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+              (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+                (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppIndent</span>
+                  (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+                    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"if "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)
+                    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" then"</span></span>)</span>)</span>)
+                (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.const">Lean.ParserDescr.const</a> <span class="fn">`ppSpace</span></span>)</span>)
+              (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)</span>)
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppDedent</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.const">Lean.ParserDescr.const</a> <span class="fn">`ppSpace</span></span>)</span>)</span>)
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppRealFill</span>
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"else "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)</span>)</span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«termIfLet_:=_Then_Else_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L157-L157">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«termIfLet_:=_Then_Else_»">«termIfLet_:=_Then_Else_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«termIfLet_:=_Then_Else_»">«termIfLet_:=_Then_Else_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`«termIfLet_:=_Then_Else_»</span> <span class="fn">1022</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+            (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+              (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+                (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+                  (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"if "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"let "</span></span>)</span>)
+                  (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)
+                (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" := "</span></span>)</span>)
+              (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)
+            (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" then "</span></span>)</span>)
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" else "</span></span>)</span>)
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="boolIfThenElse">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L160-L162">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#boolIfThenElse">boolIfThenElse</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#boolIfThenElse">boolIfThenElse</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`boolIfThenElse</span> <span class="fn">1022</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppRealGroup</span>
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppRealFill</span>
+            (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+              (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+                (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppIndent</span>
+                  (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+                    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"bif "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)
+                    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" then"</span></span>)</span>)</span>)
+                (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.const">Lean.ParserDescr.const</a> <span class="fn">`ppSpace</span></span>)</span>)
+              (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)</span>)
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppDedent</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.const">Lean.ParserDescr.const</a> <span class="fn">`ppSpace</span></span>)</span>)</span>)
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`ppRealFill</span>
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"else "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)</span>)</span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_<|_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L167-L167">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_<|_»">«term_<|_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_<|_»">«term_<|_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_<|_»</span> <span class="fn">10</span> <span class="fn">0</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" <| "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">10</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_|>_»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L173-L173">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_|>_»">«term_|>_»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_|>_»">«term_|>_»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_|>_»</span> <span class="fn">10</span> <span class="fn">0</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" |> "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">11</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term_$__»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L181-L181">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term_$__»">«term_$__»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.TrailingParserDescr">Lean.TrailingParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term_$__»">«term_$__»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.trailingNode">Lean.ParserDescr.trailingNode</a> <span class="fn">`«term_$__»</span> <span class="fn">10</span> <span class="fn">0</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`atomic</span>
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" $"</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.const">Lean.ParserDescr.const</a> <span class="fn">`ws</span></span>)</span>)</span>)
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">10</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term{__:_//_}»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L187-L187">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term{__:_//_}»">«term{__:_//_}»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term{__:_//_}»">«term{__:_//_}»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`«term{__:_//_}»</span> <span class="fn">1024</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+            (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"{ "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.const">Lean.ParserDescr.const</a> <span class="fn">`ident</span></span>)</span>)
+            (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.unary">Lean.ParserDescr.unary</a> <span class="fn">`optional</span>
+              (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" : "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)</span>)</span>)
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" // "</span></span>)</span>)
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">" }"</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="termWithout_expected_type_">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L197-L197">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#termWithout_expected_type_">termWithout_expected_type_</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#termWithout_expected_type_">termWithout_expected_type_</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`termWithout_expected_type_</span> <span class="fn">1022</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"without_expected_type "</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term[_]»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L199-L199">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term[_]»">«term[_]»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term[_]»">«term[_]»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`«term[_]»</span> <span class="fn">1024</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"["</span></span>)
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.sepBy">Lean.ParserDescr.sepBy</a> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>) <span class="fn">","</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">", "</span></span>)</span>)</span>)
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"]"</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="«term%[_|_]»">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L200-L200">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#«term%[_|_]»">«term%[_|_]»</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#«term%[_|_]»">«term%[_|_]»</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`«term%[_|_]»</span> <span class="fn">1024</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span>
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"%["</span></span>)
+            (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.sepBy">Lean.ParserDescr.sepBy</a> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>) <span class="fn">","</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">", "</span></span>)</span>)</span>)
+          (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"|"</span></span>)</span>)
+        (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`term</span> <span class="fn">0</span></span>)</span>)
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"]"</span></span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="Lean.termThis">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L218-L219">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#Lean.termThis">Lean.termThis</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#Lean.termThis">Lean.termThis</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`Lean.termThis</span> <span class="fn">1024</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"this"</span></span>)</span></span></li>
+</ul>
+</details>
+<p>Special identifier introduced by "anonymous" <code>have:...</code>, <code>sufficesp...</code> etc.</p></div>
+</div>
+<div class="decl" id="Lean.rawStx.quot">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/leanprover/lean4/blob/6b1297fe85575c91cf613640bdd96cd1241d1a9e/src/Init/Notation.lean#L224-L224">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Init/Notation.html#Lean.rawStx.quot">Lean.rawStx.quot</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr">Lean.ParserDescr</a></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Init/Notation.html#Lean.rawStx.quot">Lean.rawStx.quot</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.node">Lean.ParserDescr.node</a> <span class="fn">`Lean.Parser.Term.quot</span> <span class="fn">1024</span>
+    (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">"`(rawStx|"</span></span>)
+      (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.binary">Lean.ParserDescr.binary</a> <span class="fn">`andthen</span> (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.cat">Lean.ParserDescr.cat</a> <span class="fn">`rawStx</span> <span class="fn">0</span></span>) (<span class="fn"><a href="/Socket.lean/Init/Prelude.html#Lean.ParserDescr.symbol">Lean.ParserDescr.symbol</a> <span class="fn">")"</span></span>)</span>)</span>)</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+</main>
+<nav class="nav">
+<h3>General documentation</h3>
+<div class="nav_link">
+<a href="/Socket.lean/">index</a>
+</div>
+<h3>Library</h3>
+<div class="module_list">
+<details class="nav_sect" data-path="/Socket.lean/Init.html" open="">
+<summary>Init</summary>
+<details class="nav_sect" data-path="/Socket.lean/Init/Control.html">
+<summary>Init.Control</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Basic.html">Init.Control.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/EState.html">Init.Control.EState</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Except.html">Init.Control.Except</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/ExceptCps.html">Init.Control.ExceptCps</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Id.html">Init.Control.Id</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Lawful.html">Init.Control.Lawful</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Option.html">Init.Control.Option</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Reader.html">Init.Control.Reader</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/State.html">Init.Control.State</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/StateCps.html">Init.Control.StateCps</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/StateRef.html">Init.Control.StateRef</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data.html">
+<summary>Init.Data</summary>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Array.html">
+<summary>Init.Data.Array</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/Basic.html">Init.Data.Array.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/BasicAux.html">Init.Data.Array.BasicAux</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/BinSearch.html">Init.Data.Array.BinSearch</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/DecidableEq.html">Init.Data.Array.DecidableEq</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/InsertionSort.html">Init.Data.Array.InsertionSort</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/Mem.html">Init.Data.Array.Mem</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/QSort.html">Init.Data.Array.QSort</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/Subarray.html">Init.Data.Array.Subarray</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/ByteArray.html">
+<summary>Init.Data.ByteArray</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/ByteArray/Basic.html">Init.Data.ByteArray.Basic</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Char.html">
+<summary>Init.Data.Char</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Char/Basic.html">Init.Data.Char.Basic</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Fin.html">
+<summary>Init.Data.Fin</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Fin/Basic.html">Init.Data.Fin.Basic</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/FloatArray.html">
+<summary>Init.Data.FloatArray</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/FloatArray/Basic.html">Init.Data.FloatArray.Basic</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Format.html">
+<summary>Init.Data.Format</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Format/Basic.html">Init.Data.Format.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Format/Instances.html">Init.Data.Format.Instances</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Format/Macro.html">Init.Data.Format.Macro</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Format/Syntax.html">Init.Data.Format.Syntax</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Int.html">
+<summary>Init.Data.Int</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Int/Basic.html">Init.Data.Int.Basic</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/List.html">
+<summary>Init.Data.List</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/List/Basic.html">Init.Data.List.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/List/BasicAux.html">Init.Data.List.BasicAux</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/List/Control.html">Init.Data.List.Control</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Nat.html">
+<summary>Init.Data.Nat</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Basic.html">Init.Data.Nat.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Bitwise.html">Init.Data.Nat.Bitwise</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Control.html">Init.Data.Nat.Control</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Div.html">Init.Data.Nat.Div</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Gcd.html">Init.Data.Nat.Gcd</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Linear.html">Init.Data.Nat.Linear</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Log2.html">Init.Data.Nat.Log2</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/SOM.html">Init.Data.Nat.SOM</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Option.html">
+<summary>Init.Data.Option</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Option/Basic.html">Init.Data.Option.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Option/BasicAux.html">Init.Data.Option.BasicAux</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Option/Instances.html">Init.Data.Option.Instances</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/String.html">
+<summary>Init.Data.String</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/String/Basic.html">Init.Data.String.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/String/Extra.html">Init.Data.String.Extra</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/ToString.html">
+<summary>Init.Data.ToString</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/ToString/Basic.html">Init.Data.ToString.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/ToString/Macro.html">Init.Data.ToString.Macro</a>
+</div>
+</details>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/AC.html">Init.Data.AC</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array.html">Init.Data.Array</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Basic.html">Init.Data.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/ByteArray.html">Init.Data.ByteArray</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Char.html">Init.Data.Char</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Fin.html">Init.Data.Fin</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Float.html">Init.Data.Float</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/FloatArray.html">Init.Data.FloatArray</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Format.html">Init.Data.Format</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Hashable.html">Init.Data.Hashable</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Int.html">Init.Data.Int</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/List.html">Init.Data.List</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat.html">Init.Data.Nat</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/OfScientific.html">Init.Data.OfScientific</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Option.html">Init.Data.Option</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Ord.html">Init.Data.Ord</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Prod.html">Init.Data.Prod</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Random.html">Init.Data.Random</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Range.html">Init.Data.Range</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Repr.html">Init.Data.Repr</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Stream.html">Init.Data.Stream</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/String.html">Init.Data.String</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/ToString.html">Init.Data.ToString</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/UInt.html">Init.Data.UInt</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/System.html">
+<summary>Init.System</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System/FilePath.html">Init.System.FilePath</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System/IO.html">Init.System.IO</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System/IOError.html">Init.System.IOError</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System/Platform.html">Init.System.Platform</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System/ST.html">Init.System.ST</a>
+</div>
+</details>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Classical.html">Init.Classical</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Coe.html">Init.Coe</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control.html">Init.Control</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Conv.html">Init.Conv</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Core.html">Init.Core</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data.html">Init.Data</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Fix.html">Init.Fix</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Hints.html">Init.Hints</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Meta.html">Init.Meta</a>
+</div>
+<div class="nav_link" visible="">
+<a href="/Socket.lean/Init/Notation.html">Init.Notation</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/NotationExtra.html">Init.NotationExtra</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Prelude.html">Init.Prelude</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/SimpLemmas.html">Init.SimpLemmas</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/SizeOf.html">Init.SizeOf</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/SizeOfLemmas.html">Init.SizeOfLemmas</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System.html">Init.System</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Tactics.html">Init.Tactics</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Util.html">Init.Util</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/WF.html">Init.WF</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/WFTactics.html">Init.WFTactics</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Socket.html">
+<summary>Socket</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Socket/Basic.html">Socket.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Socket/Init.html">Socket.Init</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Socket/SockAddr.html">Socket.SockAddr</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Socket/Socket.html">Socket.Socket</a>
+</div>
+</details>
+</div>
+</nav>
+<script>
+siteRoot = "/Socket.lean/";
+      </script>
+<script src="/Socket.lean/nav.js">
+</script>
+<script src="/Socket.lean/search.js">
+</script>
+<script src="/Socket.lean/mathjax-config.js">
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</body>
+</html>

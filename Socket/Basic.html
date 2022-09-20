@@ -1,0 +1,801 @@
+<html lang="en">
+<head>
+<link rel="stylesheet" href="/Socket.lean/style.css"></link><link rel="stylesheet" href="/Socket.lean/pygments.css"></link><link rel="shortcut icon" href="/Socket.lean/favicon.ico"></link><title>Socket.Basic</title>
+<meta charset="UTF-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta></head>
+<body>
+<input id="nav_toggle" type="checkbox"></input><header>
+<h1>
+<label for="nav_toggle">
+</label>
+Documentation</h1>
+<p class="header_filename break_within">Socket.Basic</p>
+<form action="https://google.com/search" method="get" id="search_form">
+<input type="hidden" name="sitesearch" value="https://leanprover-community.github.io/mathlib_docs"></input><input type="text" name="q" autocomplete="off"></input><button>Google site search</button>
+</form>
+</header>
+<nav class="internal_nav">
+<h3>
+<a class="break_within" href="#top">Socket.Basic</a>
+</h3>
+<p class="gh_nav_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean">source</a>
+</p>
+<div class="imports">
+<details>
+<summary>Imports</summary>
+<ul>
+<li>
+<a href="/Socket.lean/Init.html">Init</a>
+</li>
+</ul>
+</details>
+<details>
+<summary>Imported by</summary>
+<ul>
+<li>
+<a href="/Socket.lean/Socket.html">Socket</a>
+</li>
+<li>
+<a href="/Socket.lean/Socket/SockAddr.html">Socket.SockAddr</a>
+</li>
+<li>
+<a href="/Socket.lean/Socket/Socket.html">Socket.Socket</a>
+</li>
+</ul>
+</details>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.Socket.Nonempty">Socket.Socket.Nonempty</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.Socket">Socket.Socket</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.instNonemptySocket">Socket.instNonemptySocket</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.SockAddr.Nonempty">Socket.SockAddr.Nonempty</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.SockAddr">Socket.SockAddr</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.instNonemptySockAddr">Socket.instNonemptySockAddr</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.AddressFamily">Socket.AddressFamily</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.instInhabitedAddressFamily">Socket.instInhabitedAddressFamily</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.instToStringAddressFamily">Socket.instToStringAddressFamily</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.SockType">Socket.SockType</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.instInhabitedSockType">Socket.instInhabitedSockType</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.instToStringSockType">Socket.instToStringSockType</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.ShutdownHow">Socket.ShutdownHow</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.instInhabitedShutdownHow">Socket.instInhabitedShutdownHow</a>
+</div>
+<div class="nav_link">
+<a class="break_within" href="#Socket.hostname">Socket.hostname</a>
+</div>
+</nav>
+<main>
+<div class="mod_doc">
+<h1 class="markdown-heading" id="socket-type-definitions">Socket Type Definitions <a class="hover-link" href="#socket-type-definitions">#</a></h1><p>This module defines some basic types to be used across whole pacage:</p><ul>
+<li><code><a href="/Socket.lean/Socket/Basic.html#Socket.Socket">Socket</a></code>: Opaque reference to underlying socket</li>
+<li><code><a href="/Socket.lean/Socket/Basic.html#Socket.SockAddr">SockAddr</a></code>: Opaque reference to underlying socket address</li>
+<li><code><a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily">AddressFamily</a></code>: Enumeration of supported address families</li>
+</ul></div>
+<div class="mod_doc"><h2 class="markdown-heading" id="socket">Socket <a class="hover-link" href="#socket">#</a></h2></div>
+<div class="decl" id="Socket.Socket.Nonempty">
+<div class="constant">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L22-L22">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">constant</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.Socket.Nonempty">Socket.Socket.Nonempty</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#NonemptyType">NonemptyType</a></div></div>
+<p>Use <code><a href="/Socket.lean/Init/Prelude.html#NonemptyType">NonemptyType</a></code> to implement <code><a href="/Socket.lean/Init/Prelude.html#Inhabited">Inhabited</a></code> for <code><a href="/Socket.lean/Socket/Basic.html#Socket.Socket">Socket</a></code>.
+<a href="#explanation-usage-of-nonemptytype">detailed explanation</a></p></div>
+</div>
+<div class="decl" id="Socket.Socket">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L44-L44">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">noncomputable def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.Socket">Socket.Socket</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn">Type</span></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Socket/Basic.html#Socket.Socket">Socket.Socket</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#NonemptyType.type">NonemptyType.type</a> <a href="/Socket.lean/Socket/Basic.html#Socket.Socket.Nonempty">Socket.Socket.Nonempty</a></span></span></li>
+</ul>
+</details>
+<p>Opaque reference to underlying platform specific socket.</p><p>To create a <code><a href="/Socket.lean/Socket/Basic.html#Socket.Socket">Socket</a></code>, refer to <a href="/Socket.lean/Socket/Socket.html#Socket.Socket.mk"><code>Socket.mk</code></a>. Then you
+can manipulate the <code><a href="/Socket.lean/Socket/Basic.html#Socket.Socket">Socket</a></code> using common socket functions like
+<a href="/Socket.lean/Socket/Socket.html#Socket.Socket.bind"><code>Socket.bind</code></a>,<a href="/Socket.lean/Socket/Socket.html#Socket.Socket.connect"><code>Socket.connect</code></a>,
+etc. For all functions available, refer to the <a href="/Socket.lean/Socket/Socket.html"><code>Socket</code> module</a>.</p><p><em>NOTE</em>: <code><a href="/Socket.lean/Init/Prelude.html#NonemptyType">NonemptyType</a></code> is used to implement <code><a href="/Socket.lean/Init/Prelude.html#Inhabited">Inhabited</a></code> for <code><a href="/Socket.lean/Socket/Basic.html#Socket.Socket">Socket</a></code>. <a href="#explanation-usage-of-nonemptytype">detailed explanation</a></p><pre><code class="language-lean">import Socket
+open Socket
+
+def main : IO Unit := do
+  let s ← Socket.mk
+  -- some socket operations
+  s.close
+</code></pre></div>
+</div>
+<div class="decl" id="Socket.instNonemptySocket">
+<div class="instance">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L50-L50">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">noncomputable instance</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.instNonemptySocket">Socket.instNonemptySocket</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn"><a href="/Socket.lean/Init/Prelude.html#Nonempty">Nonempty</a> <a href="/Socket.lean/Socket/Basic.html#Socket.Socket">Socket.Socket</a></span></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Socket/Basic.html#Socket.instNonemptySocket">Socket.instNonemptySocket</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <a href="/Socket.lean/Socket/Basic.html#Socket.instNonemptySocket.proof_1">Socket.instNonemptySocket.proof_1</a></span></li>
+</ul>
+</details>
+<p>Use <code><a href="/Socket.lean/Init/Prelude.html#NonemptyType">NonemptyType</a></code> to implement <code><a href="/Socket.lean/Init/Prelude.html#Inhabited">Inhabited</a></code> for <code><a href="/Socket.lean/Socket/Basic.html#Socket.Socket">Socket</a></code>.
+<a href="#explanation-usage-of-nonemptytype">detailed explanation</a></p></div>
+</div>
+<div class="decl" id="Socket.SockAddr.Nonempty">
+<div class="constant">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L56-L56">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">constant</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.SockAddr.Nonempty">Socket.SockAddr.Nonempty</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><a href="/Socket.lean/Init/Prelude.html#NonemptyType">NonemptyType</a></div></div>
+<p>Use <code><a href="/Socket.lean/Init/Prelude.html#NonemptyType">NonemptyType</a></code> to implement <code><a href="/Socket.lean/Init/Prelude.html#Inhabited">Inhabited</a></code> for <code><a href="/Socket.lean/Socket/Basic.html#Socket.SockAddr">SockAddr</a></code>.
+<a href="#explanation-usage-of-nonemptytype">detailed explanation</a></p></div>
+</div>
+<div class="decl" id="Socket.SockAddr">
+<div class="def">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L63-L63">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">noncomputable def</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.SockAddr">Socket.SockAddr</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn">Type</span></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Socket/Basic.html#Socket.SockAddr">Socket.SockAddr</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn"><a href="/Socket.lean/Init/Prelude.html#NonemptyType.type">NonemptyType.type</a> <a href="/Socket.lean/Socket/Basic.html#Socket.SockAddr.Nonempty">Socket.SockAddr.Nonempty</a></span></span></li>
+</ul>
+</details>
+<p>Opaque reference to underlying socket address.</p><p><em>NOTE</em>: Different from the C <code>sockaddr</code>, <code><a href="/Socket.lean/Socket/Basic.html#Socket.SockAddr">SockAddr</a></code> also includes length.</p></div>
+</div>
+<div class="decl" id="Socket.instNonemptySockAddr">
+<div class="instance">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L69-L69">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">noncomputable instance</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.instNonemptySockAddr">Socket.instNonemptySockAddr</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn"><a href="/Socket.lean/Init/Prelude.html#Nonempty">Nonempty</a> <a href="/Socket.lean/Socket/Basic.html#Socket.SockAddr">Socket.SockAddr</a></span></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Socket/Basic.html#Socket.instNonemptySockAddr">Socket.instNonemptySockAddr</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <a href="/Socket.lean/Socket/Basic.html#Socket.instNonemptySockAddr.proof_1">Socket.instNonemptySockAddr.proof_1</a></span></li>
+</ul>
+</details>
+<p>Use <code><a href="/Socket.lean/Init/Prelude.html#NonemptyType">NonemptyType</a></code> to implement <code><a href="/Socket.lean/Init/Prelude.html#Inhabited">Inhabited</a></code> for <code><a href="/Socket.lean/Socket/Basic.html#Socket.SockAddr">SockAddr</a></code>
+<a href="#explanation-usage-of-nonemptytype">detailed explanation</a></p></div>
+</div>
+<div class="decl" id="Socket.AddressFamily">
+<div class="inductive">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L75-L79">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">inductive</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily">Socket.AddressFamily</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn">Type</span></div></div>
+<ul class="constructors">
+<li class="constructor" id="Socket.AddressFamily.unspecified">
+unspecified: <a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily">Socket.AddressFamily</a></li>
+<li class="constructor" id="Socket.AddressFamily.inet">
+inet: <a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily">Socket.AddressFamily</a></li>
+<li class="constructor" id="Socket.AddressFamily.inet6">
+inet6: <a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily">Socket.AddressFamily</a></li>
+</ul>
+<p>Enumeration of supported address families,
+which is used in <a href="/Socket.lean//find/Socket.Socket.mk"><code>Socket.mk</code></a>.</p></div>
+</div>
+<div class="decl" id="Socket.instInhabitedAddressFamily">
+<div class="instance">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L79-L79">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">instance</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.instInhabitedAddressFamily">Socket.instInhabitedAddressFamily</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn"><a href="/Socket.lean/Init/Prelude.html#Inhabited">Inhabited</a> <a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily">Socket.AddressFamily</a></span></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Socket/Basic.html#Socket.instInhabitedAddressFamily">Socket.instInhabitedAddressFamily</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn">{ default := <a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily.unspecified">Socket.AddressFamily.unspecified</a> }</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="Socket.instToStringAddressFamily">
+<div class="instance">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L82-L86">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">instance</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.instToStringAddressFamily">Socket.instToStringAddressFamily</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn"><a href="/Socket.lean/Init/Data/ToString/Basic.html#ToString">ToString</a> <a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily">Socket.AddressFamily</a></span></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Socket/Basic.html#Socket.instToStringAddressFamily">Socket.instToStringAddressFamily</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn">{ toString := <span class="fn">fun <span class="fn">_fun_discr</span> =>
+      <span class="fn">match <span class="fn">_fun_discr</span> with
+      | <a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily.inet6">Socket.AddressFamily.unspecified</a> => <span class="fn">"AF_UNSPEC"</span>
+      | <a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily.inet6">Socket.AddressFamily.inet</a> => <span class="fn">"AF_INET"</span>
+      | <a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily.inet6">Socket.AddressFamily.inet6</a> => <a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily.inet6">"AF_INET6"</a></span></span> }</span></span></li>
+</ul>
+</details>
+<p>Convert <code><a href="/Socket.lean/Socket/Basic.html#Socket.AddressFamily">AddressFamily</a></code> to <code><a href="/Socket.lean/Init/Prelude.html#String">String</a></code>.</p></div>
+</div>
+<div class="decl" id="Socket.SockType">
+<div class="inductive">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L92-L96">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">inductive</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.SockType">Socket.SockType</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn">Type</span></div></div>
+<ul class="constructors">
+<li class="constructor" id="Socket.SockType.unspecified">
+unspecified: <a href="/Socket.lean/Socket/Basic.html#Socket.SockType">Socket.SockType</a></li>
+<li class="constructor" id="Socket.SockType.stream">
+stream: <a href="/Socket.lean/Socket/Basic.html#Socket.SockType">Socket.SockType</a></li>
+<li class="constructor" id="Socket.SockType.dgram">
+dgram: <a href="/Socket.lean/Socket/Basic.html#Socket.SockType">Socket.SockType</a></li>
+</ul>
+<p>Enumeration of supported socket types,
+which is used in <a href="/Socket.lean//find/Socket.Socket.mk"><code>Socket.mk</code></a>.</p></div>
+</div>
+<div class="decl" id="Socket.instInhabitedSockType">
+<div class="instance">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L96-L96">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">instance</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.instInhabitedSockType">Socket.instInhabitedSockType</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn"><a href="/Socket.lean/Init/Prelude.html#Inhabited">Inhabited</a> <a href="/Socket.lean/Socket/Basic.html#Socket.SockType">Socket.SockType</a></span></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Socket/Basic.html#Socket.instInhabitedSockType">Socket.instInhabitedSockType</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn">{ default := <a href="/Socket.lean/Socket/Basic.html#Socket.SockType.unspecified">Socket.SockType.unspecified</a> }</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="Socket.instToStringSockType">
+<div class="instance">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L99-L103">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">instance</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.instToStringSockType">Socket.instToStringSockType</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn"><a href="/Socket.lean/Init/Data/ToString/Basic.html#ToString">ToString</a> <a href="/Socket.lean/Socket/Basic.html#Socket.SockType">Socket.SockType</a></span></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Socket/Basic.html#Socket.instToStringSockType">Socket.instToStringSockType</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a>   <span class="fn">{ toString := <span class="fn">fun <span class="fn">_fun_discr</span> =>
+      <span class="fn">match <span class="fn">_fun_discr</span> with
+      | <a href="/Socket.lean/Socket/Basic.html#Socket.SockType.dgram">Socket.SockType.unspecified</a> => <span class="fn">"SOCK_UNSPEC"</span>
+      | <a href="/Socket.lean/Socket/Basic.html#Socket.SockType.dgram">Socket.SockType.stream</a> => <span class="fn">"SOCK_STREAM"</span>
+      | <a href="/Socket.lean/Socket/Basic.html#Socket.SockType.dgram">Socket.SockType.dgram</a> => <a href="/Socket.lean/Socket/Basic.html#Socket.SockType.dgram">"SOCK_DGRAM"</a></span></span> }</span></span></li>
+</ul>
+</details>
+<p>Convert <code><a href="/Socket.lean/Socket/Basic.html#Socket.SockType">SockType</a></code> to <code><a href="/Socket.lean/Init/Prelude.html#String">String</a></code>.</p></div>
+</div>
+<div class="decl" id="Socket.ShutdownHow">
+<div class="inductive">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L109-L113">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">inductive</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.ShutdownHow">Socket.ShutdownHow</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn">Type</span></div></div>
+<ul class="constructors">
+<li class="constructor" id="Socket.ShutdownHow.read">
+read: <a href="/Socket.lean/Socket/Basic.html#Socket.ShutdownHow">Socket.ShutdownHow</a></li>
+<li class="constructor" id="Socket.ShutdownHow.write">
+write: <a href="/Socket.lean/Socket/Basic.html#Socket.ShutdownHow">Socket.ShutdownHow</a></li>
+<li class="constructor" id="Socket.ShutdownHow.readwrite">
+readwrite: <a href="/Socket.lean/Socket/Basic.html#Socket.ShutdownHow">Socket.ShutdownHow</a></li>
+</ul>
+<p>Enumeration of how is socket shutdown,
+which is used in <a href="/Socket.lean/Socket/Socket.html#Socket.Socket.shutdown"><code>Socket.shutdown</code></a>.</p></div>
+</div>
+<div class="decl" id="Socket.instInhabitedShutdownHow">
+<div class="instance">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L113-L113">source</a>
+</div>
+<div class="decl_header">
+<span class="decl_kind">instance</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.instInhabitedShutdownHow">Socket.instInhabitedShutdownHow</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn"><a href="/Socket.lean/Init/Prelude.html#Inhabited">Inhabited</a> <a href="/Socket.lean/Socket/Basic.html#Socket.ShutdownHow">Socket.ShutdownHow</a></span></div></div>
+<details>
+<summary>Equations</summary>
+<ul class="equations">
+<li class="equation">
+<span class="fn"><a href="/Socket.lean/Socket/Basic.html#Socket.instInhabitedShutdownHow">Socket.instInhabitedShutdownHow</a> <a href="/Socket.lean/Init/Prelude.html#Eq">=</a> <span class="fn">{ default := <a href="/Socket.lean/Socket/Basic.html#Socket.ShutdownHow.read">Socket.ShutdownHow.read</a> }</span></span></li>
+</ul>
+</details>
+</div>
+</div>
+<div class="decl" id="Socket.hostname">
+<div class="constant">
+<div class="gh_link">
+<a href="https://github.com/yatima-inc/Socket.lean/blob/9fc98bc24ccdb4471b2e38e94dccd18f75d2a293/Socket/Basic.lean#L116-L116">source</a>
+</div>
+<div class="attributes">@[extern  lean_gethostname]</div>
+<div class="decl_header">
+<span class="decl_kind">constant</span>
+<span class="decl_name">
+<a class="break_within" href="/Socket.lean/Socket/Basic.html#Socket.hostname">Socket.hostname</a>
+</span>
+<span class="decl_args">:</span>
+<div class="decl_type"><span class="fn"><a href="/Socket.lean/Init/System/IO.html#IO">IO</a> <a href="/Socket.lean/Init/Prelude.html#String">String</a></span></div></div>
+<p>Get hostname of current machine.</p></div>
+</div>
+<div class="mod_doc">
+<h2 class="markdown-heading" id="explanation-usage-of-nonemptytype">Explanation: Usage of <code><a href="/Socket.lean/Init/Prelude.html#NonemptyType">NonemptyType</a></code> <a class="hover-link" href="#explanation-usage-of-nonemptytype">#</a></h2><p>As <code><a href="/Socket.lean/Socket/Basic.html#Socket.Socket">Socket</a></code> and <code><a href="/Socket.lean/Socket/Basic.html#Socket.SockAddr">SockAddr</a></code> are implemented using<code>lean_external_class</code>.
+<code><a href="/Socket.lean/Init/Prelude.html#NonemptyType">NonemptyType</a></code> is used to implement <code><a href="/Socket.lean/Init/Prelude.html#Inhabited">Inhabited</a></code> for these types.</p><p>A simple example of this trick can be found
+<a href="https://github.com/xubaiw/lean4/blob/c1fccf19cb8f15daba2329e5c82c6feca825c02b/tests/compiler/foreign">here</a>
+in Lean core.</p></div>
+</main>
+<nav class="nav">
+<h3>General documentation</h3>
+<div class="nav_link">
+<a href="/Socket.lean/">index</a>
+</div>
+<h3>Library</h3>
+<div class="module_list">
+<details class="nav_sect" data-path="/Socket.lean/Init.html">
+<summary>Init</summary>
+<details class="nav_sect" data-path="/Socket.lean/Init/Control.html">
+<summary>Init.Control</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Basic.html">Init.Control.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/EState.html">Init.Control.EState</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Except.html">Init.Control.Except</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/ExceptCps.html">Init.Control.ExceptCps</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Id.html">Init.Control.Id</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Lawful.html">Init.Control.Lawful</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Option.html">Init.Control.Option</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/Reader.html">Init.Control.Reader</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/State.html">Init.Control.State</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/StateCps.html">Init.Control.StateCps</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control/StateRef.html">Init.Control.StateRef</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data.html">
+<summary>Init.Data</summary>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Array.html">
+<summary>Init.Data.Array</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/Basic.html">Init.Data.Array.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/BasicAux.html">Init.Data.Array.BasicAux</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/BinSearch.html">Init.Data.Array.BinSearch</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/DecidableEq.html">Init.Data.Array.DecidableEq</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/InsertionSort.html">Init.Data.Array.InsertionSort</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/Mem.html">Init.Data.Array.Mem</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/QSort.html">Init.Data.Array.QSort</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array/Subarray.html">Init.Data.Array.Subarray</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/ByteArray.html">
+<summary>Init.Data.ByteArray</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/ByteArray/Basic.html">Init.Data.ByteArray.Basic</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Char.html">
+<summary>Init.Data.Char</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Char/Basic.html">Init.Data.Char.Basic</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Fin.html">
+<summary>Init.Data.Fin</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Fin/Basic.html">Init.Data.Fin.Basic</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/FloatArray.html">
+<summary>Init.Data.FloatArray</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/FloatArray/Basic.html">Init.Data.FloatArray.Basic</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Format.html">
+<summary>Init.Data.Format</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Format/Basic.html">Init.Data.Format.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Format/Instances.html">Init.Data.Format.Instances</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Format/Macro.html">Init.Data.Format.Macro</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Format/Syntax.html">Init.Data.Format.Syntax</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Int.html">
+<summary>Init.Data.Int</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Int/Basic.html">Init.Data.Int.Basic</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/List.html">
+<summary>Init.Data.List</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/List/Basic.html">Init.Data.List.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/List/BasicAux.html">Init.Data.List.BasicAux</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/List/Control.html">Init.Data.List.Control</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Nat.html">
+<summary>Init.Data.Nat</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Basic.html">Init.Data.Nat.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Bitwise.html">Init.Data.Nat.Bitwise</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Control.html">Init.Data.Nat.Control</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Div.html">Init.Data.Nat.Div</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Gcd.html">Init.Data.Nat.Gcd</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Linear.html">Init.Data.Nat.Linear</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/Log2.html">Init.Data.Nat.Log2</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat/SOM.html">Init.Data.Nat.SOM</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/Option.html">
+<summary>Init.Data.Option</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Option/Basic.html">Init.Data.Option.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Option/BasicAux.html">Init.Data.Option.BasicAux</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Option/Instances.html">Init.Data.Option.Instances</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/String.html">
+<summary>Init.Data.String</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/String/Basic.html">Init.Data.String.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/String/Extra.html">Init.Data.String.Extra</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/Data/ToString.html">
+<summary>Init.Data.ToString</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/ToString/Basic.html">Init.Data.ToString.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/ToString/Macro.html">Init.Data.ToString.Macro</a>
+</div>
+</details>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/AC.html">Init.Data.AC</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Array.html">Init.Data.Array</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Basic.html">Init.Data.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/ByteArray.html">Init.Data.ByteArray</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Char.html">Init.Data.Char</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Fin.html">Init.Data.Fin</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Float.html">Init.Data.Float</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/FloatArray.html">Init.Data.FloatArray</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Format.html">Init.Data.Format</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Hashable.html">Init.Data.Hashable</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Int.html">Init.Data.Int</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/List.html">Init.Data.List</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Nat.html">Init.Data.Nat</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/OfScientific.html">Init.Data.OfScientific</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Option.html">Init.Data.Option</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Ord.html">Init.Data.Ord</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Prod.html">Init.Data.Prod</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Random.html">Init.Data.Random</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Range.html">Init.Data.Range</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Repr.html">Init.Data.Repr</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/Stream.html">Init.Data.Stream</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/String.html">Init.Data.String</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/ToString.html">Init.Data.ToString</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data/UInt.html">Init.Data.UInt</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Init/System.html">
+<summary>Init.System</summary>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System/FilePath.html">Init.System.FilePath</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System/IO.html">Init.System.IO</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System/IOError.html">Init.System.IOError</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System/Platform.html">Init.System.Platform</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System/ST.html">Init.System.ST</a>
+</div>
+</details>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Classical.html">Init.Classical</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Coe.html">Init.Coe</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Control.html">Init.Control</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Conv.html">Init.Conv</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Core.html">Init.Core</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Data.html">Init.Data</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Fix.html">Init.Fix</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Hints.html">Init.Hints</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Meta.html">Init.Meta</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Notation.html">Init.Notation</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/NotationExtra.html">Init.NotationExtra</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Prelude.html">Init.Prelude</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/SimpLemmas.html">Init.SimpLemmas</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/SizeOf.html">Init.SizeOf</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/SizeOfLemmas.html">Init.SizeOfLemmas</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/System.html">Init.System</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Tactics.html">Init.Tactics</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/Util.html">Init.Util</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/WF.html">Init.WF</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Init/WFTactics.html">Init.WFTactics</a>
+</div>
+</details>
+<details class="nav_sect" data-path="/Socket.lean/Socket.html" open="">
+<summary>Socket</summary>
+<div class="nav_link" visible="">
+<a href="/Socket.lean/Socket/Basic.html">Socket.Basic</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Socket/Init.html">Socket.Init</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Socket/SockAddr.html">Socket.SockAddr</a>
+</div>
+<div class="nav_link">
+<a href="/Socket.lean/Socket/Socket.html">Socket.Socket</a>
+</div>
+</details>
+</div>
+</nav>
+<script>
+siteRoot = "/Socket.lean/";
+      </script>
+<script src="/Socket.lean/nav.js">
+</script>
+<script src="/Socket.lean/search.js">
+</script>
+<script src="/Socket.lean/mathjax-config.js">
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</body>
+</html>
